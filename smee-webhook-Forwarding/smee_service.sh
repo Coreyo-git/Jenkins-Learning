@@ -4,4 +4,4 @@
 # Ran locally to forward github webhook payloads to Jenkins Client
 
 # Configure a github weekhook that points to the hosted endpoint/url
-smee --url https://smee.io/<ENDPOINT> --path /github/webhook/ --port <PORT>
+smee --url https://smee.io/<ENDPOINT> --path /github-webhook/ --port <PORT>
