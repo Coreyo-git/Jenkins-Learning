@@ -1,0 +1,15 @@
+# Starts the smee webhook payload service
+[Unit]
+Description=Smee Client | Local Webhook Forwarding Service
+After=jenkins.service # Waits till after Jenkins Service launch
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/pi/smee/smee_service.sh
+Restart=on-failure
+RestartSec=10
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target
