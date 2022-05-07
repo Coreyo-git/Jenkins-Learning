@@ -11,10 +11,10 @@ A react-app setup to get familiar with setting up Jenkins as a CI/CD Pipeline fo
 
 ### Packages
 
-- TailwindCSS
+- TailwindCSS <https://tailwindcss.com/>
 
 ## Smee Webhook Payload Forwarding
 
 - Smee Website: <https://smee.io>
 
-> Used to run a local channel to receive webhook payloads without port forwarding
+> Used to run a local channel to receive webhook payloads without port forwarding.
