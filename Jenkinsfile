@@ -6,7 +6,7 @@ pipeline {
         sh '''
         docker version
         docker info
-        docker compose version
+        docker-compose version
         curl --version
         '''
       }
@@ -18,8 +18,8 @@ pipeline {
     }
     stage("Start Containers") {
       steps{
-        sh 'docker compose up -d --no-color --wait' // -d detach no color because no GUI
-        sh 'docker compose ps' // Check whats running
+        sh 'docker-compose up -d --no-color --wait' // -d detach no color because no GUI
+        sh 'docker-compose ps' // Check whats running
       }
     }
     stage("Run Tests against containers") {
@@ -31,8 +31,8 @@ pipeline {
   }
     post { // Post stage actions
     always {
-      sh 'docker compose down --remove-orphans -v' // removes any leftover containers 
-      sh 'docker compose ps'
+      sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
+      sh 'docker-compose ps'
     }
   }
 }
