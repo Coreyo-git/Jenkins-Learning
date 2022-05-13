@@ -1,9 +1,9 @@
 # Pulls node and nginx to statically serve front end
 FROM node:16 as builder
 WORKDIR /app 
-COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
+COPY react-app/package.json ./
+COPY react-app/package-lock.json ./
+COPY react-app/ ./
 RUN npm i && npm run build
 
 FROM nginx:latest

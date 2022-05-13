@@ -24,15 +24,15 @@ pipeline {
     }
     stage("Run Tests against containers") {
       steps{
-        sh 'curl http://localhost:5000' // some api endpoint for .net
-        sh 'curl http://localhost:3000' // get react app page
+        sh 'curl http://localhost:5000/WeatherForecast' // some api endpoint for .net
+        sh 'curl http://localhost:80/' // get react app page
       }
     }
   }
-    post { // Post stage actions
-    always {
-      sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
-      sh 'docker-compose ps'
-    }
-  }
+  //   post { // Post stage actions
+  //   always {
+  //     sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
+  //     sh 'docker-compose ps'
+  //   }
+  // }
 }

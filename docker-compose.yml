@@ -16,7 +16,7 @@ services:
       - shop-network
 
   shopping-api:
-    image: bitbyteyum/api:v1
+    image: bitbyteyum/shopapi:v1
     build:
       context: .
       dockerfile: shopping-api/Dockerfile
@@ -30,7 +30,7 @@ services:
       - shop-network
 
   react-app:
-    image: bitbyteyum/app:v1
+    image: bitbyteyum/react-app:v1
     build:
         context: .
         dockerfile: react-app/Dockerfile
