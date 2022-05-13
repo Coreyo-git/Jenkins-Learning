@@ -29,7 +29,7 @@ services:
     networks:
       - shop-network
 
-  react-aoo:
+  react-app:
     image: bitbyteyum/app:v1
     build:
         context: .
