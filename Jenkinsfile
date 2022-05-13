@@ -18,7 +18,7 @@ pipeline {
     }
     stage("Start Containers") {
       steps{
-        sh 'docker-compose up -d --no-color --wait' // -d detach no color because no GUI
+        sh 'docker-compose up -d --no-color' // -d detach no color because no GUI
         sh 'docker-compose ps' // Check whats running
       }
     }
