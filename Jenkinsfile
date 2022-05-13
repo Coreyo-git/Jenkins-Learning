@@ -1,31 +1,29 @@
 pipeline {
     agents any
     stages {
-        stage("build"){
-            when {
-                expression { // Only deploy when master branch is pushed too
-                    BRANCH_NAME == 'master'
-                }
-            }
+        stage("verify tooling"){
             steps{
-                echo 'Building React App..'
-                cd react-app
-                npm install
-                npm run build
-
-                echo 'Building Back end'
-                cd ../shopping-api
-                dotnet build
+                sh '''
+                docker version
+                docker info
+                docker compose version
+                curl --version
+                '''
             }
         }
-        stage("test"){
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
+        stage("Prune Docker data"){
+            steps {
+                sh 'docker system prune -a --volumes -f' // Start off with clean base each run
             }
+        }
+        stage("Start Containers"){
+            sh 'docker compose up -d --no-color --wait' // -d detach no color because no GUI
+            sh 'docker compose ps' // Check whats running
+        }
+        stage("Run Tests against containers"){
             steps{
-                echo 'Testing'
+                sh 'curl http://localhost:5000' // some api endpoint for .net
+                sh 'curl http://localhost:3000' // get react app page
             }
         }
         stage("deploy"){
@@ -41,13 +39,14 @@ pipeline {
     }
     post { // Post stage actions
         always {
-            //
+            sh 'docker compose down --remove-orphans -v' // removes any leftover containers 
+            sh 'docker compose ps'
         }
-        success {
-            //
-        }
-        failure {
-            //
-        }
+        // success {
+        //     //
+        // }
+        // failure {
+        //     //
+        // }
     }
 }
