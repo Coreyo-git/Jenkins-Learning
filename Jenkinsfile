@@ -3,6 +3,8 @@ pipeline {
   stages {
     stage("verify tooling") {
       steps{
+        sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
+        sh 'docker-compose ps'
         sh '''
         docker version
         docker info
