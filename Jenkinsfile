@@ -13,11 +13,11 @@ pipeline {
         '''
       }
     }
-    // stage("Prune Docker data") {
-    //   steps {
-    //     sh 'docker system prune -a --volumes -f' // Start off with clean base each run
-    //   }
-    // }
+    stage("Prune Docker data") {
+      steps {
+        sh 'docker system prune -a --volumes -f' // Start off with clean base each run
+      }
+    }
     stage("Start Containers") {
       steps{
         sh 'docker-compose up -d --no-color' // -d detach no color because no GUI
