@@ -1,9 +1,45 @@
+import React, { useState, useEffect } from "react";
 function ShoppingItemSelect({ products }) {
+  const [currentProduct, setCurrentProduct] = useState({ quantity: 1}); // stores the state of product
+  const [currentPrice, setCurrentPrice] = useState(100); // stores currentPrice
+  const [productUpdated, setProductUpdated] = useState(false); // Tracks if the product changed
+
+  function handleChange(event) {
+    let value = event.target.value;
+    let name = event.target.name;
+
+    // Sets the currentProducts object, leaving the previous values and rerendering the specific elements value that changed
+    if (name !== "price") {
+      setProductUpdated(true);
+      setCurrentProduct((prevState) => {
+        return { ...prevState, [name]: value };
+      });
+    } // Handles change for currentProduct Selections changes grabs name and value of form element
+  }
+
+  // Watches the currentProduct selection state and triggers price allocation/calculation
+  useEffect(() => {
+    if (productUpdated === true) { // Doesnt run filter unless there's been a product change
+      console.log("hello");
+      let current = products.filter(
+        (product) => product.name === currentProduct.product
+      ); 
+      // Multiply current product price by quantity 
+      setCurrentPrice(current[0].price * currentProduct.quantity);
+    }
+  }, [currentProduct]);
+
   return (
     <div className="flex justify-left flex-direction: row">
       {/* Products Selection box, holds all available products as a drop down */}
       <div className="px-2 mb-3 w-30">
-        Products: <select
+        Products:{" "}
+        <select
+          id="product"
+          type="text"
+          value={currentProduct.name}
+          onChange={handleChange}
+          name="product"
           className="form-select appearance-none
             px-3 py-1.5 text-base font-normal
             text-gray-700 bg-white bg-clip-padding bg-no-repeat
@@ -14,19 +50,22 @@ function ShoppingItemSelect({ products }) {
         >
           {/* Maps the products names to a options within the selection box */}
           <option disabled>Product</option>
-          {products.map(product => 
-           <option>{product.name}</option>
-        )}
+          {products.map((product, id) => (
+            <option key={id}>{product.name}</option>
+          ))}
         </select>
       </div>
 
       {/* Stores the Quantity of items value 
           Will be used to calculate price x Quantity eventually*/}
-      
+
       <div className=" px-2 mb-3 w-1/5">
         Quantity :
         <input
+          value={currentProduct.quantity}
+          onChange={handleChange}
           type="number"
+          name="quantity"
           className="w-1/2 px-2 py-1.5 text-base font-normal text-gray-400
             bg-white bg-clip-padding border border-solid 
             border-gray-300 rounded transition ease-in-out m-0
@@ -41,12 +80,13 @@ function ShoppingItemSelect({ products }) {
         Price: $
         <input
           type="text"
+          value={currentPrice}
           className="w-1/2 px-3 py-1.5 text-base
             font-normal text-gray-700 bg-gray-100 
             bg-clip-padding border border-solid border-gray-300 
             rounded transition ease-in-out m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          id="priceTextBox"
+          id="price"
           placeholder="0"
           aria-label="Price of product"
           disabled
