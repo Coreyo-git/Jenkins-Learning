@@ -31,10 +31,10 @@ pipeline {
       }
     }
   }
-  //   post { // Post stage actions
-  //   always {
-  //     sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
-  //     sh 'docker-compose ps'
-  //   }
-  // }
+    post { // Post stage actions
+    failure {
+      sh 'docker-compose down --remove-orphans -v' // removes any leftover containers 
+      sh 'docker-compose ps'
+    }
+  }
 }
