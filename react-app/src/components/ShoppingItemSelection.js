@@ -67,6 +67,7 @@ function ShoppingItemSelect({ products }) {
           value={currentProduct.quantity}
           onChange={handleChange}
           type="number"
+          min='1'
           name="quantity"
           className="w-1/2 px-2 py-1.5 text-base font-normal text-gray-400
             bg-white bg-clip-padding border border-solid 
