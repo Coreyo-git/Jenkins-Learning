@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 function ShoppingItemSelect({ products }) {
   const [currentProduct, setCurrentProduct] = useState({ quantity: 1}); // stores the state of product
   const [currentPrice, setCurrentPrice] = useState(100); // stores currentPrice

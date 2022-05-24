@@ -8,11 +8,11 @@ export async function getShoppingList() {
         {
             name: "product 2",
             quantity: 8,
-            price: 8*200
+            price: 1600
         }
     ]
     return shoppingList
-    // const response = await fetch("http://localhost:5000/api/get_products");
+    // const response = await fetch("http://localhost:5000/api/get_shopping_list");
     // if (response.ok) {
     //   return response.json();
     // }

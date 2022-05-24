@@ -1,23 +1,23 @@
 export async function getProducts() {
     let products = [
         {
-            name: "product 1",
+            name: "Shoes",
             price: 100
         },
         {
-            name: "product 2",
+            name: "Pants",
             price: 200
         },
         {
-            name: "product 3",
+            name: "Shirt",
             price: 300
         },
         {
-            name: "product 4",
+            name: "Watch",
             price: 400
         },
         {
-            name: "product 5",
+            name: "Necklace",
             price: 500
         },
     ]
