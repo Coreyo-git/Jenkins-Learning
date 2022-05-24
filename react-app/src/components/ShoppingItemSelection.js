@@ -27,6 +27,7 @@ function ShoppingItemSelect({ products }) {
       // Multiply current product price by quantity 
       setCurrentPrice(current[0].price * currentProduct.quantity);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProduct]);
 
   return (
