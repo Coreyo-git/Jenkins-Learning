@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 function ShoppingItemSelect({ products }) {
-  const [currentProduct, setCurrentProduct] = useState({product:'Shoes', quantity: 1 }); // stores the state of product
+  const [currentProduct, setCurrentProduct] = useState({
+    product: "Shoes",
+    quantity: 1,
+  }); // stores the state of product
   const [currentPrice, setCurrentPrice] = useState(100); // stores currentPrice
   const [productUpdated, setProductUpdated] = useState(false); // Tracks if the product changed
 
@@ -10,25 +13,24 @@ function ShoppingItemSelect({ products }) {
     let name = event.target.name;
 
     // Sets the currentProducts object, leaving the previous values and rerendering the specific elements value that changed
-    if (name !== "price") {
-      setProductUpdated(true);
-      setCurrentProduct((prevState) => {
-        return { ...prevState, [name]: value };
-      });
-    } // Handles change for currentProduct Selections changes grabs name and value of form element
+    setProductUpdated(true);
+    setCurrentProduct((prevState) => {
+      return { ...prevState, [name]: value };
+    }); // Handles change for currentProduct Selections changes grabs name and value of form element
   }
 
   // Watches the currentProduct selection state and triggers price allocation/calculation
   useEffect(() => {
-    if (productUpdated === true) { // Doesnt run filter unless there's been a product change
+    if (productUpdated === true) {
+      // Doesnt run filter unless there's been a product change
       console.log("hello");
       let current = products.filter(
         (product) => product.name === currentProduct.product
-      ); 
-      // Multiply current product price by quantity 
+      );
+      // Multiply current product price by quantity
       setCurrentPrice(current[0].price * currentProduct.quantity);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProduct]);
 
   return (
@@ -67,7 +69,7 @@ function ShoppingItemSelect({ products }) {
           value={currentProduct.quantity}
           onChange={handleChange}
           type="number"
-          min='1'
+          min="1"
           name="quantity"
           className="w-1/2 px-2 py-1.5 text-base font-normal text-gray-400
             bg-white bg-clip-padding border border-solid 
