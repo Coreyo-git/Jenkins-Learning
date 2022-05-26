@@ -1,12 +1,12 @@
 export async function getShoppingList() {
     let shoppingList = [
         {
-            name: "product 1",
+            name: "Shoes",
             quantity: 2,
             price: 200
         },
         {
-            name: "product 2",
+            name: "Pants",
             quantity: 8,
             price: 1600
         }

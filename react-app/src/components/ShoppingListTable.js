@@ -72,7 +72,7 @@ function ShoppingListTable() {
                         {item.quantity}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.price}
+                        ${item.price}
                       </td>
                       <td> Remove Buttons </td>
                     </tr>,
