@@ -23,9 +23,8 @@ function ShoppingItemSelect({ products }) {
   useEffect(() => {
     if (productUpdated === true) {
       // Doesnt run filter unless there's been a product change
-      console.log("hello");
       let current = products.filter(
-        (product) => product.name === currentProduct.product
+        (product) => product.product === currentProduct.product
       );
       // Multiply current product price by quantity
       setCurrentPrice(current[0].price * currentProduct.quantity);
@@ -41,7 +40,7 @@ function ShoppingItemSelect({ products }) {
         <select
           id="product"
           type="text"
-          value={currentProduct.name}
+          value={currentProduct.product}
           onChange={handleChange}
           name="product"
           className="form-select appearance-none
@@ -55,7 +54,7 @@ function ShoppingItemSelect({ products }) {
           {/* Maps the products names to a options within the selection box */}
           <option disabled>Product</option>
           {products.map((product, id) => (
-            <option key={id}>{product.name}</option>
+            <option key={id}>{product.product}</option>
           ))}
         </select>
       </div>

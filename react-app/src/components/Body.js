@@ -13,6 +13,7 @@ function Body() {
     let mounted = true;
     getProducts().then((products) => {
       if (mounted) {
+        console.log(products)
         // set products to whats returned from getProducts
         setProducts(products);
       }
