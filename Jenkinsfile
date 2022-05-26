@@ -29,11 +29,6 @@ pipeline {
         sh 'docker-compose ps' // Check whats running
       }
     }
-    stage("Apply Database Migration") {
-      steps{
-        docker exec -it 
-      }
-    }
     stage("Run Tests against containers") {
       steps{
         sh 'curl http://localhost:5000/WeatherForecast' // some api endpoint for .net

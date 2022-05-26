@@ -5,11 +5,11 @@ WORKDIR /app
 # Copy the project and dependencies
 COPY shopping-api/*.csproj ./
 RUN dotnet restore
+RUN dotnet ef database update
 
 # Copy the project files and build release
 COPY . ./
 RUN dotnet publish shopping-api -c Release -o out
-RUN dotnet ef database update
 
 # Generate runtime image of aspnetcore and pulls the published version from the build
 FROM mcr.microsoft.com/dotnet/aspnet:6.0

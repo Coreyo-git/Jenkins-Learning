@@ -20,16 +20,17 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 });
 
 builder.Services.AddCors(options =>
-{
-  options.AddPolicy(name: MyAllowSpecificOrigins,
-                    policy =>
-                    {
-                      policy.WithOrigins("http://localhost:3000",
-                                            "http://localhost:80",
-                                            "http://10.0.0.*"
-                                            );
-                    });
-});
+      {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+                           policy =>
+                           {
+                             policy.WithOrigins("*", "10.0.0.*:80")
+                                   .AllowAnyOrigin()
+                                   .AllowAnyMethod()
+                                   .AllowAnyHeader();
+                           });
+
+      });
 
 var app = builder.Build();
 
