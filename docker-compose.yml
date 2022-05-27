@@ -4,8 +4,11 @@ version: '3.7'
 
 services:
   db:
-    image: postgres
+    image: bitbyteyum/postgres:v1
     restart: always
+    build:
+      context: ./db
+      dockerfile: db/Dockerfile
     ports:
         - 5432:5432
     environment:

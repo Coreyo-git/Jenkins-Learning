@@ -5,7 +5,6 @@ WORKDIR /app
 # Copy the project and dependencies
 COPY shopping-api/*.csproj ./
 RUN dotnet restore
-RUN dotnet ef database update
 
 # Copy the project files and build release
 COPY . ./
