@@ -7,8 +7,8 @@ services:
     image: bitbyteyum/postgres:v1
     restart: always
     build:
-      context: ./db
-      dockerfile: db/Dockerfile
+      context: ./database
+      dockerfile: database/Dockerfile
     ports:
         - 5432:5432
     environment:
