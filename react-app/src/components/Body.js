@@ -35,6 +35,7 @@ function Body() {
         setShoppingListUpdate={setShoppingListUpdate}
         setShoppingList={setShoppingList}
       />
+      <h1>Hello I just updated this!</h1>
     </div>
   );
 }
