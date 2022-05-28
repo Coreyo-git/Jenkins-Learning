@@ -10,25 +10,25 @@ A react-app setup to get familiar with setting up Jenkins as a CI/CD Pipeline fo
 
 ### All applications configured to be deployable with Jenkins via Docker-Compose
 
-> Deploys the react app in an Nginx webserver container
-> Deploys the back end as an ASP.NET runtime container
-> Deploys the PostgreSQL Database standalone
+- Deploys the react app in an Nginx webserver container
+- Deploys the back end as an ASP.NET runtime container
+- Deploys the PostgreSQL Database standalone
 
 ## React app
 
-> Shopping list webpage mockup application
-> Has a product selection component that is filled via DB, Select product quantity and calcs price
-> Shopping List Table that stores the list of items added/deleted
+- Shopping list webpage mockup application
+- Has a product selection component that is filled via DB, Select product quantity and calcs price
+- Shopping List Table that stores the list of items added/deleted
 
 ## .NET Core Web API
 
-> Using Entity Framework Core and Npgsql package as a code first approach for dev
-> Handles Adding products to shopping list
-> Removing products from shopping list
+- Using Entity Framework Core and Npgsql package as a code first approach for dev
+- Handles Adding products to shopping list
+- Removing products from shopping list
 
 ## PostgreSQL Database
 
-> Database that stores she products and shopping list.
+- Database that stores she products and shopping list.
 
 ### Packages
 
