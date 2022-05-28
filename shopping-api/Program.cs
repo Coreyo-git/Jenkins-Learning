@@ -1,6 +1,7 @@
 using shopping_api.Models;
 using shopping_api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,7 @@ builder.Services.AddCors(options =>
         options.AddPolicy(name: MyAllowSpecificOrigins,
                            policy =>
                            {
-                             policy.WithOrigins("*", "10.0.0.*:80")
+                             policy.WithOrigins("*")
                                    .AllowAnyOrigin()
                                    .AllowAnyMethod()
                                    .AllowAnyHeader();
@@ -32,7 +33,11 @@ builder.Services.AddCors(options =>
 
       });
 
+builder.WebHost.UseUrls("http://*:5000"); // Fixes CORS error
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -41,9 +46,12 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
+app.Urls.Add("http://*:5000");
+//app.Urls.Add("https://*:5001");
+
 app.UseCors(MyAllowSpecificOrigins);
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
