@@ -10,6 +10,21 @@ namespace shopping_api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "product_list",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    product = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    price = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_product_list", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "products",
                 columns: table => new
                 {
@@ -23,24 +38,16 @@ namespace shopping_api.Migrations
                     table.PrimaryKey("PK_products", x => x.id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "product_list",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "product_list",
+                columns: new[] { "id", "price", "product", "quantity" },
+                values: new object[,]
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    productid = table.Column<int>(type: "integer", nullable: false),
-                    total_price = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_product_list", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_product_list_products_productid",
-                        column: x => x.productid,
-                        principalTable: "products",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                    { 1, 300, "Shoes", 3 },
+                    { 2, 800, "Pants", 4 },
+                    { 3, 300, "Shirt", 1 },
+                    { 4, 400, "Watch", 1 },
+                    { 5, 1000, "Necklace", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -54,11 +61,6 @@ namespace shopping_api.Migrations
                     { 4, 400, "Watch" },
                     { 5, 500, "Necklace" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_product_list_productid",
-                table: "product_list",
-                column: "productid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

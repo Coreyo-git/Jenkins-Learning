@@ -7,15 +7,15 @@ namespace shopping_api.Models
     [Key]
     [Required]
     public int id { get; set; }
-
+    
     [Required]
-    public Product? product { get; set; }
-
+    [MaxLength(50)]
+    public string? product { get; set; }
+    
     [Required]
     public int quantity { get; set; }
-
-    // Stores the total price of all products in the product list
+    
     [Required]
-    public int total_price { get; set; }
+    public int price { get; set; }
   }
 }

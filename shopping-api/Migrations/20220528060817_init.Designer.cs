@@ -11,7 +11,7 @@ using shopping_api.Data;
 namespace shopping_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220526022600_init")]
+    [Migration("20220528060817_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,28 +84,57 @@ namespace shopping_api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<int>("productid")
+                    b.Property<int>("price")
                         .HasColumnType("integer");
 
-                    b.Property<int>("total_price")
+                    b.Property<string>("product")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("quantity")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
-                    b.HasIndex("productid");
-
                     b.ToTable("product_list");
-                });
 
-            modelBuilder.Entity("shopping_api.Models.ProductList", b =>
-                {
-                    b.HasOne("shopping_api.Models.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("productid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("product");
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            price = 300,
+                            product = "Shoes",
+                            quantity = 3
+                        },
+                        new
+                        {
+                            id = 2,
+                            price = 800,
+                            product = "Pants",
+                            quantity = 4
+                        },
+                        new
+                        {
+                            id = 3,
+                            price = 300,
+                            product = "Shirt",
+                            quantity = 1
+                        },
+                        new
+                        {
+                            id = 4,
+                            price = 400,
+                            product = "Watch",
+                            quantity = 1
+                        },
+                        new
+                        {
+                            id = 5,
+                            price = 1000,
+                            product = "Necklace",
+                            quantity = 2
+                        });
                 });
 #pragma warning restore 612, 618
         }

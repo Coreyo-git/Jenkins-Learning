@@ -1,18 +1,54 @@
 import { getShoppingList } from "../services/getShoppingList";
 import React, { useState, useEffect } from "react";
+import { deleteProduct } from "../services/deleteProduct";
 
 function ShoppingListTable() {
   const [shoppingList, setShoppingList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  // Sums all the shoppingList items to a total price
+  function sumTotalPrice(list) {
+    var i;
+    var sum = 0;
+    for (i = 0; i < list.length; i++) {
+      sum += list[i].price
+    }
+    return sum
+  }
+
+  // Updates the shopping list state
+  async function updateShoppingList() {
+    getShoppingList().then((list) => {
+      setShoppingList(list)
+      setTotalPrice(sumTotalPrice(list));
+    })
+    
+  }
 
   useEffect(() => {
     let mounted = true;
-    getShoppingList().then((list) => {
-      if (mounted) {
-        setShoppingList(list);
-      }
-    });
+    if (mounted) {
+      updateShoppingList();
+    }
     return () => (mounted = false);
   }, []); // INITIAL MOUNT !!! Calls services/getShoppingList.js and mounts on initial render
+
+// ------ Delete Quote Logic ----------------------------
+  //
+  // Alerts the user with information in which quote they're deleting
+  // Confirm calls ~/services/deleteQuote.js
+  async function deleteProductCheck(product_number, product, quantity){
+    if (window.confirm("Are you sure you want to remove #"+product_number+" "+product +" Quantity: "+quantity)) {      
+      // asynchronously sends a fetch delete method and returns true if correct
+      // only returns true when a quote is successfully deleted
+      if (await deleteProduct(product_number) === true) {
+        // re render the shopping list
+        updateShoppingList();
+
+      } else { console.log('Error deleting Product') }
+
+    } else { console.log("User Canalled product deletion") }
+  }
 
   return (
     <div className="flex flex-col">
@@ -22,7 +58,7 @@ function ShoppingListTable() {
             <table className="min-w-full">
               <thead className="border-b bg-gray-800">
                 <tr>
-                  <th
+                <th
                     scope="col"
                     className="text-sm font-medium text-white px-6 py-4 text-left"
                   >
@@ -66,7 +102,7 @@ function ShoppingListTable() {
                         {i + 1}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.name}
+                        {item.product}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {item.quantity}
@@ -74,10 +110,28 @@ function ShoppingListTable() {
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         ${item.price}
                       </td>
-                      <td> Remove Buttons </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <button className="bg-red-600 hover:bg-yellow-700 text-white font-bold py-1.5 px-3 border border-white-700 rounded"
+                        onClick={() =>
+                          deleteProductCheck(
+                            item.id,
+                            item.product,
+                            item.quantity
+                          )
+                        }>
+                          &#128465;
+                        </button>
+                      </td>
                     </tr>,
                   ];
                 })}
+
+                <tr className="">
+                  <td></td><td></td>
+                  <td className="text-md text-black-900 font-dark py-1">
+                    Total Price: ${totalPrice}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
