@@ -15,7 +15,8 @@ pipeline {
     }
     stage("Prune Docker data") {
       steps {
-        sh 'docker system prune -a --volumes -f' // Start off with clean base each run
+        sh 'docker-compose build && docker-compose up --remove-orphans'
+        //sh 'docker system prune -a --volumes -f' // Start off with clean base each run
         //sh 'docker images -a | grep "bitbyteyum" | xargs docker rmi' // Removes the images for a fresh build
         // sh '''
         // docker rmi $(docker images -q bitbyteyum/shopapi)
