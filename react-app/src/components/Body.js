@@ -7,6 +7,7 @@ function Body() {
   const [products, setProducts] = useState([]); // stores the product names as an array
   const [shoppingList, setShoppingList] = useState([]); // The shopping list
   const [productSelection, setProductSelection] = useState({}); // State of the selected products
+  const [shoppingListUpdate, setShoppingListUpdate] = useState(false); // State of the selected shopping list
 
   // When Mounted calls getProducts service to generate the products as an object array
   useEffect(() => {
@@ -23,11 +24,15 @@ function Body() {
     <div>
       <ShoppingListSelection
         products={products}
+        shoppingListUpdate={shoppingListUpdate}
+        setShoppingListUpdate={setShoppingListUpdate}
         setProductSelection={setProductSelection}
         productSelection={productSelection}
       />
       <ShoppingListTable
         shoppingList={shoppingList}
+        shoppingListUpdate={shoppingListUpdate}
+        setShoppingListUpdate={setShoppingListUpdate}
         setShoppingList={setShoppingList}
       />
     </div>

@@ -16,14 +16,14 @@ public class AddProductToList : ControllerBase
   }
 
   [HttpPost]
-  [Route("/api/add_product/{product}")]
-  public IActionResult AddProduct(ProductList product)
+  [Route("/api/post_new_product/")]
+  public IActionResult AddProduct([FromBody]ProductList product)
   {
     if (product != null)
     {
       _db.product_list.Add(product);
-
+      _db.SaveChanges();
     }
-    return Ok();
+    return Ok(product);
   }
 }

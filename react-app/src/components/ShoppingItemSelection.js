@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { postNewProductToList } from "../services/postNewProductToList";
 
-function ShoppingItemSelect({ products }) {
+function ShoppingItemSelect({ products, shoppingListUpdate, setShoppingListUpdate }) {
   const [currentProduct, setCurrentProduct] = useState({
     product: "Shoes",
     quantity: 1,
@@ -31,6 +32,16 @@ function ShoppingItemSelect({ products }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProduct]);
+
+  async function tryAddNewProduct(product, quantity, price) {
+    try {
+      await postNewProductToList(product, quantity, price).then(() => {
+        setShoppingListUpdate(true)
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="flex justify-left flex-direction: row">
@@ -106,6 +117,13 @@ function ShoppingItemSelect({ products }) {
         font-medium text-xs rounded shadow-md hover:bg-blue-700 hover:shadow-lg
          focus:bg-blue-700 focus:shadow-lg focus:outline-none
          focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        onClick={() =>
+          tryAddNewProduct(
+            currentProduct.product,
+            currentProduct.quantity,
+            currentPrice
+          )
+        }
       >
         Add Product
       </button>

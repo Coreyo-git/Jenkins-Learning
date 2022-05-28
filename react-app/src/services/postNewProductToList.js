@@ -1,4 +1,4 @@
-export async function postNewQuote(
+export async function postNewProductToList(
   product, quantity, price
 ) {
 
@@ -16,9 +16,8 @@ export async function postNewQuote(
       },
       body: JSON.stringify(productData),
     })
-      .then((pRes) => pRes.json())
       .then(() => {
-        console.log("Product Added to DB");
+        console.log("Product Added to DB: " + productData.product + " | quantity:" + productData.quantity + " | price: $" + productData.price);
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -2,7 +2,7 @@ import { getShoppingList } from "../services/getShoppingList";
 import React, { useState, useEffect } from "react";
 import { deleteProduct } from "../services/deleteProduct";
 
-function ShoppingListTable() {
+function ShoppingListTable({shoppingListUpdate, setShoppingListUpdate}) {
   const [shoppingList, setShoppingList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -21,9 +21,16 @@ function ShoppingListTable() {
     getShoppingList().then((list) => {
       setShoppingList(list)
       setTotalPrice(sumTotalPrice(list));
-    })
-    
+    })  
   }
+
+  useEffect(() =>{
+    if(shoppingListUpdate === true){
+      setShoppingListUpdate(false);
+      updateShoppingList();
+    }
+    
+  }, [shoppingListUpdate])
 
   useEffect(() => {
     let mounted = true;
@@ -37,11 +44,11 @@ function ShoppingListTable() {
   //
   // Alerts the user with information in which quote they're deleting
   // Confirm calls ~/services/deleteQuote.js
-  async function deleteProductCheck(product_number, product, quantity){
-    if (window.confirm("Are you sure you want to remove #"+product_number+" "+product +" Quantity: "+quantity)) {      
+  async function deleteProductCheck(index,id, product, quantity){
+    if (window.confirm("Are you sure you want to remove #"+index+" "+product +" Quantity: "+quantity)) {      
       // asynchronously sends a fetch delete method and returns true if correct
       // only returns true when a quote is successfully deleted
-      if (await deleteProduct(product_number) === true) {
+      if (await deleteProduct(id) === true) {
         // re render the shopping list
         updateShoppingList();
 
@@ -114,6 +121,7 @@ function ShoppingListTable() {
                         <button className="bg-red-600 hover:bg-yellow-700 text-white font-bold py-1.5 px-3 border border-white-700 rounded"
                         onClick={() =>
                           deleteProductCheck(
+                            i + 1,
                             item.id,
                             item.product,
                             item.quantity
@@ -127,9 +135,9 @@ function ShoppingListTable() {
                 })}
 
                 <tr className="">
-                  <td></td><td></td>
+                  <td></td><td></td><td></td>
                   <td className="text-md text-black-900 font-dark py-1">
-                    Total Price: ${totalPrice}
+                    Total: ${totalPrice}
                   </td>
                 </tr>
               </tbody>

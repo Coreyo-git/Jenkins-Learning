@@ -20,7 +20,7 @@ public class RemoveProductFromList : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         // Grabs the quote number record from the database and removes the quote by number
-        ProductList currentProduct = _db.product_list.Where(pl => pl.id == id).FirstOrDefault();
+        ProductList? currentProduct = _db.product_list.Where(pl => pl.id == id).FirstOrDefault();
 
         if (currentProduct?.id > 0)
         {
@@ -32,7 +32,7 @@ public class RemoveProductFromList : ControllerBase
             return Ok("Deleted Quote");
         }
 
-        else if (currentProduct.id == 0)
+        else if (currentProduct?.id == 0)
         {
             return NotFound("Error");
         }
