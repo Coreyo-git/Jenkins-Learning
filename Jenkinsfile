@@ -13,9 +13,9 @@ pipeline {
         '''
       }
     }
-    stage("Prune Docker data") {
+    stage("Build Docker Containers") {
       steps {
-        sh 'docker-compose build && docker-compose up --remove-orphans'
+        sh 'docker-compose build'
         //sh 'docker system prune -a --volumes -f' // Start off with clean base each run
         //sh 'docker images -a | grep "bitbyteyum" | xargs docker rmi' // Removes the images for a fresh build
         // sh '''
@@ -26,7 +26,7 @@ pipeline {
     }
     stage("Start Containers") {
       steps{
-        sh 'docker-compose up -d --no-color' // -d detach no color because no GUI
+        sh 'docker-compose up -d --no-color --remove-orphans' // -d detach no color because no GUI
         sh 'docker-compose ps' // Check whats running
       }
     }
