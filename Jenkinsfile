@@ -16,12 +16,6 @@ pipeline {
     stage("Build Docker Containers") {
       steps {
         sh 'docker-compose build'
-        //sh 'docker system prune -a --volumes -f' // Start off with clean base each run
-        //sh 'docker images -a | grep "bitbyteyum" | xargs docker rmi' // Removes the images for a fresh build
-        // sh '''
-        // docker rmi $(docker images -q bitbyteyum/shopapi)
-        // docker rmi $(docker images -q bitbyteyum/react-app)
-        // ''' // Removes the two images built front and back end
       }
     }
     stage("Start Containers") {
